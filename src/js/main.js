@@ -1,4 +1,4 @@
-// Constantes locais
+// Constantes globais
 
     // tamanho do tela
     const SCREEN_W = 1920;
@@ -8,12 +8,68 @@
     const SCREEN_CX = SCREEN_W / 2;
     const SCREEN_CY = SCREEN_H / 2;
 
+    // Estados do jogo
+    const STATE_INIT = 1;
+    const STATE_RESTART = 2;
+    const STATE_PLAY = 3;
+    const STATE_GAMEOVER =4;
+
+// Variáveis globais
+var state = STATE_INIT;
+
 // Cenas
+
     // Cena Principal
     class MainScene extends Phaser.Scene
     {
         constructor() {
             super({key: 'SceneMain'});
+        }
+
+        // Carrega todos os assets
+        preload() {
+            // Carrega a imagem do fundo
+            this.load.image('imgBack', '../../assets/img_back.png')
+        }
+
+        // Cria todos os objetos
+        create() {
+            // Cria um obj da imagem
+            this.sprBack = this.add.image(SCREEN_CX, SCREEN_CY, 'imgBack');
+
+            // Funcionalidade de pausar
+            this.input.keyboard.on('keydown-P' function() {
+                console.log('O jogo está pausado. Pressione [P] para continuar');
+                this.scene.pause();
+                this.scene.launch('ScenePause');
+            }, this)
+        }
+
+            // Funcionalidade de despausar
+            
+
+        // Atualiza a cena (loop Principal do jogo)
+        update(time, delta) {
+            switch(state) {
+                case STATE_INIT:
+                    console.log('Init game.');
+                    state = STATE_RESTART;
+                    break;
+
+                case STATE_RESTART:
+                    console.log('Restart game.');
+                    state = STATE_PLAY;
+                    break;
+                
+                case STATE_PLAY:
+                    console.log('Playing game.');
+                    state = STATE_GAMEOVER;
+                    break;
+
+                case STATE_GAMEOVER:
+                    console.log('Game over.');
+                    break;
+            }
         }
     }
 
@@ -38,7 +94,11 @@
             autoCenter: Phaser.Scale.CENTER_BOTH,
         },
 
-        scene: [MainScene, PauseScene]
+        scene: [MainScene, PauseScene],
+
+        audio: {
+            noAudio: true
+        }
     };
 
 // Instância do Jogo
