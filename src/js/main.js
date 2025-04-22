@@ -37,16 +37,19 @@ var state = STATE_INIT;
             // Cria um obj da imagem
             this.sprBack = this.add.image(SCREEN_CX, SCREEN_CY, 'imgBack');
 
+            // Instancias
+            this.settings = new Settings(this);
+
             // Funcionalidade de pausar
             this.input.keyboard.on('keydown-P', function() {
-                console.log('O jogo está pausado. Pressione [P] para continuar');
+                this.settings.txtPause.text = "[P] Resume"
                 this.scene.pause();
                 this.scene.launch('ScenePause');
             }, this);
             
             // Funcionalidade de despausar    
             this.events.on('resume', function() {
-                console.log('O jogo está continuando. Pressione [P] para pausar.');
+                this.settings.show();
             }, this);
         }
 
