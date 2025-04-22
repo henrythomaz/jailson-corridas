@@ -38,15 +38,18 @@ var state = STATE_INIT;
             this.sprBack = this.add.image(SCREEN_CX, SCREEN_CY, 'imgBack');
 
             // Funcionalidade de pausar
-            this.input.keyboard.on('keydown-P' function() {
+            this.input.keyboard.on('keydown-P', function() {
                 console.log('O jogo está pausado. Pressione [P] para continuar');
                 this.scene.pause();
                 this.scene.launch('ScenePause');
-            }, this)
+            }, this);
+            
+            // Funcionalidade de despausar    
+            this.events.on('resume', function() {
+                console.log('O jogo está continuando. Pressione [P] para pausar.');
+            }, this);
         }
 
-            // Funcionalidade de despausar
-            
 
         // Atualiza a cena (loop Principal do jogo)
         update(time, delta) {
@@ -78,6 +81,13 @@ var state = STATE_INIT;
     {
         constructor() {
             super({key: 'ScenePause'});
+        }
+
+        create() {
+            this.input.keyboard.on('keydown-P', function() {
+                this.scene.resume('SceneMain');
+                this.scene.stop();
+            }, this)
         }
     }
 
