@@ -66,11 +66,14 @@ var state = STATE_INIT;
                 case STATE_RESTART:
                     console.log('Restart game.');
                     this.circuit.create();
+                    
                     state = STATE_PLAY;
                     break;
                 
                 case STATE_PLAY:
                     console.log('Playing game.');
+                    this.circuit.render2D();
+
                     state = STATE_GAMEOVER;
                     break;
 
