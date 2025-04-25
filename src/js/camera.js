@@ -10,7 +10,7 @@ class Camera
         this.z = 0;
 
         // distância Z entre a camera e o jogador
-        this.distToPlayer = 100;
+        this.distToPlayer = 500;
 
         // distância Z entre a camera e a projeção base do plano
         this.distToPlane = null;

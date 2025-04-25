@@ -56,6 +56,11 @@ class Circuit
    }
     // Cria um nvo segmento
     createSegment() {
+        // define as cores
+        const COLORS = {
+            LIGHT: {road: '0x888888', grass: '0x429352'},
+            DARK: {road: '0x6666666', grass: '0x397d46'}
+        };
         // Pega o número atual de segmentos
         var n = this.segments.length;
 
@@ -67,7 +72,7 @@ class Circuit
                 screen: {x:0, y: 0, z: 0},
                 scale: -1
             },
-            color: {road: '0x888888'}
+            color: Math.floor(n/5) % 2 ? COLORS.DARK : COLORS.LIGHT
         })
     }
 
@@ -140,6 +145,11 @@ class Circuit
 
     // Desenha o segmento.
     drawSegment(x1, y1, w1, x2, y2, w2, color) {
+        // Desenha a grama
+        this.graphics.fillStyle(color.grass, 1)
+        this.graphics.fillRect(0, y2, SCREEN_W, y1 - y2);
+
+        // Desenha o Poligno
         this.drawPolygon(x1-w1, y1, x1+w1, y1, x2+w2, y2, x2-w2, y2, color.road);
     }
 
