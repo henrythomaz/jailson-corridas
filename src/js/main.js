@@ -38,6 +38,7 @@ var state = STATE_INIT;
             this.sprBack = this.add.image(SCREEN_CX, SCREEN_CY, 'imgBack');
 
             // Instancias
+            this.circuit = new Circuit(this);
             this.settings = new Settings(this);
 
             // Funcionalidade de pausar
@@ -51,7 +52,7 @@ var state = STATE_INIT;
             this.events.on('resume', function() {
                 this.settings.show();
             }, this);
-        }
+        };
 
 
         // Atualiza a cena (loop Principal do jogo)
@@ -64,6 +65,7 @@ var state = STATE_INIT;
 
                 case STATE_RESTART:
                     console.log('Restart game.');
+                    this.circuit.create();
                     state = STATE_PLAY;
                     break;
                 
